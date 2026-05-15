@@ -1,0 +1,46 @@
+# ── Build artefacts ───────────────────────────────────────────────────────────
+build/
+out/
+cmake-build-*/
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+*.exe
+
+# ── CMake generated files ─────────────────────────────────────────────────────
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+compile_commands.json
+
+# ── IDE / editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.xcodeproj/
+*.xcworkspace/
+*.DS_Store
+Thumbs.db
+
+# ── Clangd / compile_commands ─────────────────────────────────────────────────
+.cache/
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+
+# ── Assets that should be stored with Git LFS (if enabled) ───────────────────
+# assets/**/*.png
+# assets/**/*.jpg
+# assets/**/*.hdr
