@@ -56,7 +56,7 @@ where `r̂₁₂` is the unit vector pointing from body 1 toward body 2.
 **Constants used in the simulation:**
 - `G = 800.0` (simulation units — tunable in the Physics panel)
 - Masses are in arbitrary "solar mass" units; 1.0 ≈ Earth-mass reference
-
+Watch this: https://www.youtube.com/watch?v=kxkFaBG6a-A
 ---
 
 ### 2. Softened Gravity (Preventing the Singularity)
