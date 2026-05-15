@@ -294,8 +294,8 @@ void Renderer::drawBody(const Body& b, const Camera& cam) {
     glUniform4fv(      glGetUniformLocation(m_bodyProg, "u_color"),  1, glm::value_ptr(b.color));
     glUniform1f(       glGetUniformLocation(m_bodyProg, "u_radius"), r);
     glUniform1f(       glGetUniformLocation(m_bodyProg, "u_glow"),   glow);
-    glUniform1i(       glGetUniformLocation(m_bodyProg, "u_isStar"),
-                       (b.isStar() || b.isNeutronStar()) ? 1 : 0);
+    glUniform1i(glGetUniformLocation(m_bodyProg, "u_isStar"),
+               (b.isStar() || b.isNeutronStar()) ? 1 : 0);
 
     glBindVertexArray(m_quadVAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

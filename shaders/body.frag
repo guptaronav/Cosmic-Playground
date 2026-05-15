@@ -3,30 +3,30 @@
 in vec2 v_uv;
 
 uniform vec4  u_color;
-uniform float u_radius;   // visual radius in world units
-uniform float u_glow;     // glow multiplier (>= 1)
-uniform bool  u_isStar;   // stars get a brighter core
+uniform float u_radius;
+uniform float u_glow;
+uniform int   u_isStar;   // 1 = star/neutron star, 0 = planet
 
 out vec4 fragColor;
 
 void main() {
-    // Distance from centre in UV space (range 0..1 maps to centre..edge of quad)
-    vec2  centred = v_uv * 2.0 - 1.0;  // [-1, 1]
+    // Map UV [0,1] to [-1,1] and compute radial distance from centre
+    vec2  centred = v_uv * 2.0 - 1.0;
     float dist    = length(centred);
 
-    // Hard edge at r = 1/glow (the physical surface)
+    // Physical surface sits at 1/glow fraction of the quad radius
     float surfaceR = 1.0 / u_glow;
 
-    // Core disk – solid body colour
+    // Solid core disk
     float core = smoothstep(surfaceR + 0.02, surfaceR - 0.02, dist);
 
-    // Glow halo – additive soft glow extending beyond the surface
+    // Soft glow halo fading outward from the surface
     float falloff = 1.0 - smoothstep(0.0, 1.0, dist / surfaceR);
     float halo    = pow(falloff, 3.0) * 0.6;
 
     // Stars get a sharper, brighter corona
     float corona = 0.0;
-    if (u_isStar) {
+    if (u_isStar != 0) {
         corona = pow(max(0.0, 1.0 - dist / surfaceR), 5.0) * 1.2;
     }
 
