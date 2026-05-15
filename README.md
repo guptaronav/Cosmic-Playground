@@ -24,11 +24,9 @@
 
 ## Screenshots
 
-> *(Add screenshots here — Solar System, Black Hole, Three-Body Chaos)*
-
-| Solar System | Black Hole + Accretion Disk | Spacetime Grid |
+| Solar System | Binary Stars | Planet Near Black Hole |
 |:---:|:---:|:---:|
-| *coming soon* | *coming soon* | *coming soon* |
+| <img width="787" height="540" alt="Solar System" src="https://github.com/user-attachments/assets/7a6d8a6a-2320-4745-83d8-e17d6fc20749" /> | <img width="640" height="444" alt="Binary Stars" src="https://github.com/user-attachments/assets/f95102fb-3946-4762-9a3e-2c7920823c1e" /> | <img width="1066" height="689" alt="Planet Near Black Hole" src="https://github.com/user-attachments/assets/a8409c0a-1a31-4a69-b888-3967a350adda" /> |
 
 ---
 
