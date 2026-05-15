@@ -4,10 +4,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // ──────────────────────────────────────────────────────────────────────────────
-//  2-D orthographic camera for the simulation view.
+//  Orbit camera around a target point in 3D space.
 //
-//  World coordinates are centred at (0,0).  The camera pans and zooms to let
-//  the user navigate large simulations.
+//  Coordinate convention
+//    Simulation 2-D positions (sx, sy)  ->  world 3-D positions (sx, 0, sy)
+//    World Y is the vertical axis (up).
+//    The camera orbits above the XZ ground plane.
+//
+//  Controls (wired in App)
+//    Right-click drag  : orbit (yaw / pitch)
+//    Middle-click drag : pan target in world XZ
+//    Scroll            : zoom (adjust distance)
 // ──────────────────────────────────────────────────────────────────────────────
 class Camera {
 public:
@@ -15,43 +22,48 @@ public:
 
     void setViewport(int width, int height);
 
-    // Pan the camera by a delta in world units
-    void pan(glm::vec2 delta);
+    // Orbit: pixelDelta from mouse drag
+    void orbit(glm::vec2 pixelDelta);
 
-    // Zoom around a pivot point in screen coordinates
-    void zoomAt(float factor, glm::vec2 screenPivot);
+    // Pan: moves target in world XZ, screen-space delta
+    void pan(glm::vec2 pixelDelta);
 
-    // Convert screen pixel position → world position
-    glm::vec2 screenToWorld(glm::vec2 screen) const;
+    // Zoom: factor > 1 zooms in
+    void zoomBy(float factor);
 
-    // Convert world position → screen pixel position
-    glm::vec2 worldToScreen(glm::vec2 world) const;
+    // Unproject screen pixel to the Y=0 ground plane (returns sim-space XY)
+    glm::vec2 screenToGroundXZ(glm::vec2 screen) const;
 
-    // Matrices for shader upload
+    // Matrices
     glm::mat4 viewMatrix()       const;
     glm::mat4 projectionMatrix() const;
     glm::mat4 viewProjection()   const { return projectionMatrix() * viewMatrix(); }
 
-    // Accessors
-    glm::vec2 position() const { return m_position; }
-    float     zoom()     const { return m_zoom; }
-    int       width()    const { return m_width; }
-    int       height()   const { return m_height; }
+    // Eye position in world space
+    glm::vec3 eyePosition() const;
 
-    // Aspect ratio
-    float aspect() const {
-        return m_height > 0 ? static_cast<float>(m_width) / m_height : 1.f;
-    }
+    // Viewport dimensions
+    int width()  const { return m_vpWidth;  }
+    int height() const { return m_vpHeight; }
 
-    // Half-extents of the visible world rectangle
-    float halfW() const { return m_halfExtent * aspect(); }
-    float halfH() const { return m_halfExtent; }
+    // Expose for UI
+    float distance() const { return m_distance; }
+    float yaw()      const { return m_yaw;      }
+    float pitch()    const { return m_pitch;     }
+
+    // Camera state (public so UI can tweak/display)
+    glm::vec3 target   = {0.f, 0.f, 0.f}; // look-at point in world XZ
+    float m_distance   = 50.f;             // distance from target
+    float m_yaw        = 0.f;              // horizontal rotation (radians)
+    float m_pitch      = -0.70f;           // vertical tilt; -pi/2 = straight down
+    float m_fov        = 55.f;             // vertical FOV in degrees
 
 private:
-    glm::vec2 m_position   = {0.f, 0.f};
-    float     m_zoom       = 1.f;          // > 1 → zoomed in
-    float     m_halfExtent = 20.f;         // base half-height in world units
+    int m_vpWidth  = 1280;
+    int m_vpHeight = 720;
 
-    int m_width  = 1280;
-    int m_height = 720;
+    static constexpr float MIN_PITCH    = -1.50f;
+    static constexpr float MAX_PITCH    = -0.08f;
+    static constexpr float MIN_DISTANCE =  4.f;
+    static constexpr float MAX_DISTANCE = 250.f;
 };
