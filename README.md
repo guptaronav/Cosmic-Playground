@@ -342,7 +342,7 @@ Cosmic-Playground/
 This project was directly inspired by **kavan010** and his outstanding OpenGL/C++ projects:
 
 - **[kavan010/black_hole](https://github.com/kavan010/black_hole)** — C++17, GLFW, GLEW, GLM, GLSL black hole renderer with geodesic ray-marching and gravitational lensing. The shader architecture, black hole layering approach (event horizon → photon sphere → lensing halo), and the idea of a visual Schwarzschild radius all trace back to this project.
-- **kavan010/gravity_sim** — Gravity simulation concept that seeded the idea for a more interactive and feature-rich sandbox.
+- **[kavan010/gravity_sim](https://github.com/kavan010/gravity_sim)** — Gravity simulation concept that seeded the idea for a more interactive and feature-rich sandbox.
 
 kavan explains the math behind these topics incredibly well in his videos — if you want to understand the *real* physics (geodesics, GR lensing, Kerr metric) rather than the Newtonian approximations used here, his content is the place to start.
 
